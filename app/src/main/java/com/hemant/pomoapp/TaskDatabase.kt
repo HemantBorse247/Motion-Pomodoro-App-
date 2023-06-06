@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [TaskEntity::class], version = 2)
+@Database(entities = [TaskEntity::class, PomodoroEntity::class], version = 7)
 abstract class TaskDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
+    abstract fun pomoDao(): PomodoroDao
 
     companion object {
         @Volatile
@@ -20,7 +21,7 @@ abstract class TaskDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         TaskDatabase::class.java,
-                        "employee_database"
+                        "pomodoro_app_database"
                     ).fallbackToDestructiveMigration().build()
 
                     INSTANCE = instance

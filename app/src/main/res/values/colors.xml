@@ -7,12 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primay_color">#BFFF4C4C</color>
+    <color name="primary_color">#FFFFFF</color>
     <color name="spec_black">#0D0404</color>
     <color name="spec_black_80per">#CC0D0404</color>
     <color name="dark_mode_red_background">#BFFF4C4C</color>
     <color name="light_mode_red_pink_background">#FFF2F2</color>
     <color name="light_mode_red_text_color">#471515</color>
-    <color name="play_pause_btn_color_light_mode_red">#B5FF4C4C</color>
+    <color name="play_pause_btn_color_light_mode_red">#99FF4C4C</color>
     <color name="timer_text_dark_mode_red_color">#FFF2F2</color>
+    <color name="green_color">#4D4DDA6E</color>
+    <color name="blue_color">#664CACFF</color>
+
+    <!--    custom colors-->
+    <color name="container_color_light">#202020</color>
+    <color name="container_color_dark">#151515</color>
 </resources>

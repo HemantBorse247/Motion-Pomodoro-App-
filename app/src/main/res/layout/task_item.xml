@@ -3,8 +3,8 @@
     android:id="@+id/llMainContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:background="@drawable/rounded_black_background"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/rounded_light_grey_background"
     android:orientation="horizontal"
     android:padding="10dp">
 
@@ -14,10 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="0.8"
+        android:fontFamily="@font/epilogue_variable_italic"
         android:gravity="start"
         android:hint="Current task"
         android:maxLength="80"
         android:textColor="@color/white"
+        android:textFontWeight="500"
         android:textColorHint="@color/white" />
 
     <LinearLayout
@@ -32,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/epilogue_variable_italic"
             android:text="3/"
             android:textColor="@color/white" />
 
@@ -40,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/epilogue_variable_italic"
             android:text="5"
             android:textColor="@color/white" />
     </LinearLayout>

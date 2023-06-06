@@ -2,7 +2,7 @@
     <string name="app_name">PomoApp</string>
     <string name="_20">20</string>
     <string name="_00">00</string>
-    <string name="start">Start</string>
+    <string name="start">Play</string>
     <string name="skip">Skip</string>
     <string name="todo" />
     <string name="todo0">TODO</string>
@@ -11,7 +11,7 @@
     <string name="todays_focus">Todays Focus</string>
     <string name="_0">0</string>
     <string name="h">h</string>
-    <string name="_0_minutes">0 minutes</string>
+    <string name="tvFocusMinutes">0 minutes</string>
     <string name="total_pomodoro">Total Pomodoro</string>
     <string name="_asrg">0</string>
     <string name="_0_minutes234">0 minutes</string>
@@ -19,4 +19,17 @@
     <string name="todo1234">TODO</string>
     <string name="asgrdh" />
     <string name="dg22" />
+    <string name="focus_length_value">25</string>
+    <string name="short_break_length_value">5</string>
+    <string name="long_break_length_value">15</string>
+    <string name="pomos_until_long_break_value">3</string>
+    <string name="set_current_task_hint_text">Set current task</string>
+    <string name="focus_mode_text">Focus Mode</string>
+    <string name="today_s_focus_text_analytics_activity">Today\'s Focus</string>
+    <string name="total_pomodoro_text_analytics_activity">Total Pomodoro</string>
+    <string name="todays_task_container_title">Today\'s Tasks</string>
+    <string name="completed_tasks_analtics_activity_container_title">Completed Tasks</string>
+    <string name="tasklist_activity_main_title">Tasklist</string>
+    <string name="settings_actovoty_main_title">Settings</string>
+    <string name="save_changes_btn_text">Save changes</string>
 </resources>

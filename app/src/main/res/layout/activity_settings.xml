@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:padding="20dp"
+    tools:context=".SettingsActivity">
+
+
+    <LinearLayout
+        android:id="@+id/llSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/epilogue_variable"
+            android:gravity="center_vertical"
+            android:text="@string/settings_actovoty_main_title"
+            android:textColor="@color/white"
+            android:textFontWeight="500"
+            android:textSize="20sp"
+            tools:targetApi="p" />
+
+        <ImageButton
+            android:id="@+id/btnCloseSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/black"
+            android:src="@drawable/close_btn_16" />
+
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        app:dividerColor="#202020"
+        app:layout_constraintBottom_toTopOf="@id/llFocusLength"
+        app:layout_constraintTop_toBottomOf="@id/llSettings" />
+
+    <LinearLayout
+        android:id="@+id/llFocusLength"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llSettings">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/epilogue_variable_italic"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:text="Focus length"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:typeface="sans" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/input_background"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/tvFocusLength"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:fontFamily="@font/epilogue_variable_italic"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="@string/focus_length_value"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageButton
+                    android:id="@+id/ibFocusLengthInc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/increase_btn_background"
+                    android:scaleType="center"
+                    android:src="@drawable/arrow_up" />
+
+                <ImageButton
+                    android:id="@+id/ibFocusLengthDec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/decrease_btn_background"
+                    android:scaleType="center"
+                    android:src="@drawable/arrow_down" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llShortBreakLength"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llFocusLength">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/epilogue_variable_italic"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:text="Short break length"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:typeface="sans" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/input_background"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/tvShortBreakLength"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:fontFamily="@font/epilogue_variable_italic"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="@string/short_break_length_value"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageButton
+                    android:id="@+id/ibShortBreakLengthInc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/increase_btn_background"
+                    android:scaleType="center"
+                    android:src="@drawable/arrow_up" />
+
+                <ImageButton
+                    android:id="@+id/ibShortBreakLengthDec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/decrease_btn_background"
+                    android:scaleType="center"
+                    android:src="@drawable/arrow_down" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llLongBreakLength"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llShortBreakLength">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/epilogue_variable_italic"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:text="Long break length"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:typeface="sans" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/input_background"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/tvLongBreakLength"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:fontFamily="@font/epilogue_variable_italic"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="@string/long_break_length_value"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageButton
+                    android:id="@+id/ibLongBreakLengthInc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/increase_btn_background"
+                    android:scaleType="center"
+                    android:src="@drawable/arrow_up" />
+
+                <ImageButton
+                    android:id="@+id/ibLongBreakLengthDec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/decrease_btn_background"
+                    android:scaleType="center"
+                    android:src="@drawable/arrow_down" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llPomoUntilLongBreak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llLongBreakLength">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/epilogue_variable_italic"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:text="Pomodoro interval"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:typeface="sans" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/input_background"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/tvPomoUntilLongBreak"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:fontFamily="@font/epilogue_variable_italic"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="@string/pomos_until_long_break_value"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageButton
+                    android:id="@+id/ibPomoUntilLongBreakInc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/increase_btn_background"
+                    android:scaleType="center"
+                    android:src="@drawable/arrow_up" />
+
+                <ImageButton
+                    android:id="@+id/ibPomoUntilLongBreakDec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/decrease_btn_background"
+                    android:scaleType="center"
+                    android:src="@drawable/arrow_down" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llAutoResumeTimer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llPomoUntilLongBreak">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/epilogue_variable_italic"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:text="Auto resume timer"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:typeface="sans" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swAutoResumeTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:theme="@style/SCBSwitch"
+            app:thumbTintMode="multiply"
+            app:useMaterialThemeColors="false" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSound"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llAutoResumeTimer">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/epilogue_variable_italic"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:text="Sound"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:typeface="sans" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:theme="@style/SCBSwitch"
+            app:thumbTintMode="multiply"
+            app:useMaterialThemeColors="false" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnSaveChanges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_white_background_only_border"
+        android:fontFamily="@font/epilogue_variable"
+        android:text="@string/save_changes_btn_text"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textFontWeight="500"
+        android:theme="@style/Button.White"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="p" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
