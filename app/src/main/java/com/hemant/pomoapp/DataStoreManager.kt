@@ -2,7 +2,11 @@ package com.hemant.pomoapp
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.first
 
@@ -18,6 +22,8 @@ class DataStoreManager(val context: Context) {
         val AUTO_TIMER = booleanPreferencesKey("autoResumeTimer")
         val SOUND = booleanPreferencesKey("sound")
         val CURRENT_TASK = intPreferencesKey("currentTask")
+        val IS_ULTRA_FOCUS_FIRST_TIME = booleanPreferencesKey("isUltraFocusFirstTime")
+
     }
 
 
@@ -44,6 +50,16 @@ class DataStoreManager(val context: Context) {
 
     suspend fun getCurrentTaskFromDataStore(): Int? {
         return context.dataStore.data.first()[CURRENT_TASK]
+    }
+
+    suspend fun changeUltraFocusFirstTime() {
+        context.dataStore.edit {
+            it[IS_ULTRA_FOCUS_FIRST_TIME] = false
+        }
+    }
+
+    suspend fun getUltraFocusFirstTime(): Boolean? {
+        return context.dataStore.data.first()[IS_ULTRA_FOCUS_FIRST_TIME]
     }
 
 

@@ -14,6 +14,16 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!--    theme for toggle button-->
+
+    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">#5CEF6B</item>
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">#f1f1f1</item>
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">#42221f1f</item>
+    </style>
+
 
     <!--    theme for buttons-->
 

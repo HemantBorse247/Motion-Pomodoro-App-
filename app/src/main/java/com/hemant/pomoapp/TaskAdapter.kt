@@ -38,26 +38,6 @@ class TaskAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = allTasks[position]
-
-
-//        if (position % 2 == 0) {
-//            holder.llMainContainer.setBackgroundResource(
-////                ContextCompat.getColor(
-////                    holder.itemView.context,
-////                    R.color.colorLightGray
-////                )
-//                ContextCompat.getDrawable(
-//                    holder.itemView.context, R.drawable.rounded_dark_grey_background
-//                )
-//            )
-//        } else {
-//            holder.llMainContainer.setBackgroundResource(
-//                ContextCompat.getDrawable(
-//                    holder.itemView.context, R.drawable.rounded_light_grey_background
-//                )
-//            )
-//        }
-
         if (position % 2 == 0) {
             holder.llMainContainer.setBackgroundResource(R.drawable.rounded_light_grey_background)
         } else {

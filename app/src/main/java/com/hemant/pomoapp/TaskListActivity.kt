@@ -3,7 +3,10 @@ package com.hemant.pomoapp
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -14,30 +17,58 @@ import com.google.android.material.textfield.TextInputEditText
 import com.hemant.pomoapp.databinding.ActivityTaskListBinding
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class TaskListActivity : AppCompatActivity() {
 
-    private var mainMenu: Menu? = null
     private var binding: ActivityTaskListBinding? = null
-    private var tasks: List<TaskEntity>? = null
+    private var tasksToday: List<TaskEntity>? = null
+    private var tasksYesterday: List<TaskEntity>? = null
+    private var TasksLast7Days: List<TaskEntity>? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTaskListBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         hideStatusBar()
 
-//        MainActivity().hideStatusBar()
-
         // instance of the TaskDao (this consists of all the methods)
         val taskdao = (application as TaskApp).db.taskDao()
-        val date = getDate()
+
+
+        //fetching today's incomplete tasks
         lifecycleScope.launch {
+            // today's date
+            val date = getDateToday()
             taskdao.fetchTaskByCompletionAndDate(false, date).collect {
-//                Log.d("some task", "$it")
-                tasks = ArrayList(it)
                 val list = ArrayList(it)
-                setupRecycleView(list, taskdao)
+                setupRecycleViewForToday(list, taskdao)
+            }
+        }
+
+        //fetching yesterday's incomplete tasks
+        lifecycleScope.launch {
+            //yesterday's date
+            val yestDate = getDateYesterday()
+            //passing false will fetch incomplete tasks and passing true will fetch completed tasks
+            taskdao.fetchNotCompletedTasksAddedYesterday(false, yestDate).collect {
+                val tasksYesterday = ArrayList(it)
+                setupRecycleViewForYesterday(tasksYesterday, taskdao)
+            }
+        }
+
+        //fetching incomplete tasks of last 7 days
+        lifecycleScope.launch {
+            val date2DaysAgo = getDate2DaysAgo()
+            val date8DaysAgo = getDate8DaysAgo()
+
+            taskdao.fetchNotCompletedTasksAddedLast7DaysExcludingTodayAndYesterdayNew(
+                date8DaysAgo, date2DaysAgo
+            ).collect {
+                val tasksLast7Days = ArrayList(it)
+                setupRecycleViewForLast7Days(tasksLast7Days, taskdao)
             }
         }
 
@@ -55,7 +86,7 @@ class TaskListActivity : AppCompatActivity() {
         binding?.ivTimer?.setOnClickListener {
             finish()
         }
-
+        //imp settings navigation
         binding?.ivSettings?.setOnClickListener {
             finish()
             val intent = Intent(this@TaskListActivity, SettingsActivity::class.java)
@@ -63,39 +94,57 @@ class TaskListActivity : AppCompatActivity() {
         }
     }
 
-    private fun showInputDialog(taskdao: TaskDao) {
-        val dialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
-        val view = LayoutInflater.from(this).inflate(R.layout.add_task_layout, null)
-        val etTaskDesc: TextInputEditText = view.findViewById(R.id.etTaskDesc)
-        val npTotalPomos: NumberPicker = view.findViewById(R.id.npTotalPomo)
-        npTotalPomos.minValue = 0
-        npTotalPomos.maxValue = 10
-        npTotalPomos.wrapSelectorWheel = true
+    private fun setupRecycleViewForYesterday(
+        tasksYesterday: ArrayList<TaskEntity>, taskdao: TaskDao
+    ) {
+        if (tasksYesterday.isNotEmpty()) {
+            val taskAdapter = TaskAdapter(tasksYesterday)
+            binding?.rvTasksYesterday?.layoutManager = LinearLayoutManager(this)
+            binding?.rvTasksYesterday?.adapter = taskAdapter
+            binding?.rvTasksYesterday?.visibility = View.VISIBLE
 
-        dialog.setView(view).setPositiveButton("Add") { _, _ ->
-            val td = etTaskDesc.text.toString()
-            val tp = npTotalPomos.value
-            lifecycleScope.launch {
-                if (td.isNotEmpty()) {
-                    taskdao.insert(TaskEntity(0, td, "/$tp", "0", false, getDate()))
-//                    binding?.tvTaskListNoTasksToDisplay?.visibility = View.GONE
-                } else {
-                    Toast.makeText(
-                        this@TaskListActivity, "Task description cannot be empty", Toast.LENGTH_LONG
-                    ).show()
-                }
+            taskAdapter.onItemClick = {
+                showUpdateDialog(
+                    taskdao, it.task_id, it.task_desc, it.total_pomos, it.comp_pomos
+                )
             }
 
-        }.setNegativeButton("Cancel", null).create().show()
+        } else {
+
+        }
     }
 
-    private fun setupRecycleView(allTasks: ArrayList<TaskEntity>, taskdao: TaskDao) {
+    private fun setupRecycleViewForLast7Days(
+        tasksLast7Days: ArrayList<TaskEntity>, taskdao: TaskDao
+    ) {
+
+        if (tasksLast7Days.isNotEmpty()) {
+
+            val taskAdapter = TaskAdapter(tasksLast7Days)
+            binding?.rvTasksLast7Days?.layoutManager = LinearLayoutManager(this)
+            binding?.rvTasksLast7Days?.adapter = taskAdapter
+            binding?.rvTasksLast7Days?.visibility = View.VISIBLE
+
+            taskAdapter.onItemClick = {
+                showUpdateDialog(
+                    taskdao, it.task_id, it.task_desc, it.total_pomos, it.comp_pomos
+                )
+            }
+
+        } else {
+            println("empty last 7 days")
+        }
+
+    }
+
+
+    private fun setupRecycleViewForToday(allTasks: ArrayList<TaskEntity>, taskdao: TaskDao) {
         if (allTasks.isNotEmpty()) {
             binding?.tvTaskListNoTasksToDisplay?.visibility = View.GONE
             val taskAdapter = TaskAdapter(allTasks)
-            binding?.rvTaskListIntent?.layoutManager = LinearLayoutManager(this)
-            binding?.rvTaskListIntent?.adapter = taskAdapter
-            binding?.rvTaskListIntent?.visibility = View.VISIBLE
+            binding?.rvTasksToday?.layoutManager = LinearLayoutManager(this)
+            binding?.rvTasksToday?.adapter = taskAdapter
+            binding?.rvTasksToday?.visibility = View.VISIBLE
 
 //             code for item on click
             taskAdapter.onItemClick = {
@@ -133,7 +182,7 @@ class TaskListActivity : AppCompatActivity() {
                     } else {
                         taskDao.update(
                             TaskEntity(
-                                task_id, td, "/$totalp", "${cp.toInt()}", false, getDate()
+                                task_id, td, "/$totalp", "${cp.toInt()}", false, getDateToday()
                             )
                         )
                         Toast.makeText(
@@ -143,20 +192,72 @@ class TaskListActivity : AppCompatActivity() {
                 }
             }.setNeutralButton("Delete") { _, _ ->
                 lifecycleScope.launch {
-                    taskDao.delete(TaskEntity(task_id, "", "", "", false, getDate()))
+                    taskDao.delete(TaskEntity(task_id, "", "", "", false, getDateToday()))
                     Toast.makeText(
                         this@TaskListActivity, "Task Deleted", Toast.LENGTH_LONG
                     ).show()
+                    finish();
+                    overridePendingTransition(0, 0);
+                    val intent = Intent(this@TaskListActivity, TaskListActivity::class.java)
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
                 }
             }.setNegativeButton("Cancel", null).create().show()
     }
 
 
-    fun getDate(): String {
+    private fun showInputDialog(taskdao: TaskDao) {
+        val dialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
+        val view = LayoutInflater.from(this).inflate(R.layout.add_task_layout, null)
+        val etTaskDesc: TextInputEditText = view.findViewById(R.id.etTaskDesc)
+        val npTotalPomos: NumberPicker = view.findViewById(R.id.npTotalPomo)
+        npTotalPomos.minValue = 0
+        npTotalPomos.maxValue = 10
+        npTotalPomos.wrapSelectorWheel = true
+
+        dialog.setView(view).setPositiveButton("Add") { _, _ ->
+            val td = etTaskDesc.text.toString()
+            val tp = npTotalPomos.value
+            lifecycleScope.launch {
+                if (td.isNotEmpty()) {
+                    taskdao.insert(TaskEntity(0, td, "/$tp", "0", false, getDateToday()))
+//                    binding?.tvTaskListNoTasksToDisplay?.visibility = View.GONE
+                } else {
+                    Toast.makeText(
+                        this@TaskListActivity, "Task description cannot be empty", Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }.setNegativeButton("Cancel", null).create().show()
+    }
+
+
+    fun getDateToday(): String {
         val c = Calendar.getInstance()
         val dateTime = c.time
         val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
         return sdf.format(dateTime)
+    }
+
+    fun getDateYesterday(): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -1) // Move one day back for yesterday
+        val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) // Your date format
+        return sdf.format(calendar.time)
+    }
+
+    fun getDate2DaysAgo(): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -2) // Move one day back for yesterday
+        val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) // Your date format
+        return sdf.format(calendar.time)
+    }
+
+    fun getDate8DaysAgo(): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -8) // Move one day back for yesterday
+        val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) // Your date format
+        return sdf.format(calendar.time)
     }
 
     fun hideStatusBar() {
@@ -177,27 +278,4 @@ class TaskListActivity : AppCompatActivity() {
     }
 
 
-//    fun showDeleteMenu(show: Boolean) {
-//        mainMenu?.findItem(R.id.itemDeleteIcon)?.isVisible = show
-//    }
-//
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        mainMenu = menu
-//        menuInflater.inflate(R.menu.custom_delete_action_bar, mainMenu)
-//        showDeleteMenu(false)
-//        return super.onCreateOptionsMenu(menu)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.itemDeleteIcon -> {
-//                deleteItems()
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
-//
-//    private fun deleteItems() {
-//
-//    }
 }

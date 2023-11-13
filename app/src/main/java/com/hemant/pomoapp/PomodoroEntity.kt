@@ -10,5 +10,4 @@ data class PomodoroEntity(
     @ColumnInfo(name = "start_date") val date: String,
     @ColumnInfo(name = "isCompleted") val isCompleted: Boolean?,
     @ColumnInfo(name = "total_pomo_time") val totalTimeInMinutes: Long?
-
 )

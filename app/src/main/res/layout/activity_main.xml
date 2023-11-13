@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="0dp"
-    android:background="@color/spec_black"
+    android:background="@color/black"
+    android:keepScreenOn="true"
     android:padding="0dp"
     tools:context=".MainActivity">
 
@@ -53,38 +56,46 @@
 
         </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/tv_minute_timer"
+        <LinearLayout
+            android:id="@+id/llTimerTVContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="0dp"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:lineHeight="0dp"
-            android:text="@string/_20"
-            android:textColor="@color/white"
-            android:textSize="200sp"
-            android:typeface="sans"
-            tools:targetApi="p" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_timerSecs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="0dp"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="top"
-            android:includeFontPadding="false"
-            android:lineHeight="0dp"
-            android:text="@string/_00"
-            android:textColor="@color/white"
-            android:textSize="200sp"
-            android:typeface="sans"
-            tools:targetApi="p" />
+            <TextView
+                android:id="@+id/tv_minute_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="0dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:lineHeight="0dp"
+                android:text="@string/_20"
+                android:textColor="@color/white"
+                android:textSize="200sp"
+                android:typeface="sans"
+                tools:targetApi="p" />
+
+            <TextView
+                android:id="@+id/tv_timerSecs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="0dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="top"
+                android:includeFontPadding="false"
+                android:lineHeight="0dp"
+                android:text="@string/_00"
+                android:textColor="@color/white"
+                android:textSize="200sp"
+                android:typeface="sans"
+                tools:targetApi="p" />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/llButtonLayout"
@@ -98,7 +109,7 @@
 
             <Button
                 android:id="@+id/play_pause_btn"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="50dp"
@@ -119,7 +130,7 @@
 
             <Button
                 android:id="@+id/skip_btn"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="25dp"
@@ -218,43 +229,118 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_black_background"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/ivTimer"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:contentDescription="@string/todo0"
-            android:src="@drawable/ic_timer_24" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ivTaskList"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/ic_task_list_24dp" />
+            <ImageView
+                android:id="@+id/ivTimer"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
 
-        <ImageView
-            android:id="@+id/ivAnalytics"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/todo00"
-            android:src="@drawable/ic_baseline_insert_chart_24"
-            tools:ignore="ContentDescription" />
+                android:contentDescription="@string/todo0"
+                android:src="@drawable/timelapse_48px" />
 
-        <ImageView
-            android:id="@+id/ivSettings"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Timer"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:contentDescription="@string/todo000"
-            android:src="@drawable/ic_baseline_settings_24" />
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivTaskList"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/format_list_bulleted" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Tasklist"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivAnalytics"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/analytics_48px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Stats"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivSettings"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/tune_48px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Settings"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

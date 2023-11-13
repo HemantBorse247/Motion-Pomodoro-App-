@@ -3,7 +3,7 @@
     android:id="@+id/llMainContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
+    android:layout_marginBottom="10dp"
     android:background="@drawable/rounded_light_grey_background"
     android:orientation="horizontal"
     android:padding="10dp">
@@ -19,8 +19,8 @@
         android:hint="Current task"
         android:maxLength="80"
         android:textColor="@color/white"
-        android:textFontWeight="500"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"
+        android:textFontWeight="500" />
 
     <LinearLayout
         android:id="@+id/llPomoCountContainer"
